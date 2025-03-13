@@ -17,9 +17,6 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           password: ${{ secrets.SSH_PASSWORD }}  # Use private key instead of password if possible
           script: |
-            cd /home/frontend_IOT  # Change this to your project directory
+            cd /home/ip_block_backend   # Change this to your project directory
             git pull
-            npm i -f
-            npm run build
-            sudo cp -r /home/frontend_IOT/build/* /var/www/
             
