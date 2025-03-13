@@ -12,6 +12,7 @@ connectDB();
 // Routes
 const authRoutes = require("./routes/auth");
 const blockRoutes = require("./routes/block");
+const ipMonitorRoutes = require("./routes/ipMonitor");
 
 // Middlewares
 app.use(cors({
@@ -22,8 +23,12 @@ app.use(cors({
 app.use(bodyParser.json());
 
 // Routes
-app.use("/api/v1/users/", authRoutes);
-app.use("/api/block", blockRoutes);
+app.use("/v1/users/", authRoutes);
+app.use("/block", blockRoutes);
+app.use("/ip-monitor", ipMonitorRoutes);
+
+// Serve static files from public directory
+app.use(express.static('public'));
 
 // PORT
 const port = process.env.PORT || 8080;
