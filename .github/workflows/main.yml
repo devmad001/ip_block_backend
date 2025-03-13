@@ -1,0 +1,22 @@
+name: Auto Pull on Push
+
+on:
+  push:
+    branches:
+      - master  # Change to your branch if needed
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: SSH into server and pull latest changes
+        uses: appleboy/ssh-action@v0.1.10
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          password: ${{ secrets.SSH_PASSWORD }}  # Use private key instead of password if possible
+          script: |
+            cd /home/ip_block_backend   # Change this to your project directory
+            git pull 
+            
