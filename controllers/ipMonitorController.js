@@ -71,4 +71,15 @@ exports.getBlockedIPs = async (req, res) => {
         console.error('Error getting blocked IPs:', error);
         res.status(500).json({ error: 'Internal server error' });
     }
+};
+
+
+exports.getIPs = async (req, res) => {
+    try {
+        const blockedIPs = await BlockedIP.find({});
+        res.json(blockedIPs);
+    } catch (error) {
+        console.error('Error getting blocked IPs:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
 }; 
