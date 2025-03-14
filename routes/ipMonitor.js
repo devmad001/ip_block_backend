@@ -11,5 +11,6 @@ router.post('/block', auth, ipMonitorController.blockIP);
 router.delete('/unblock/:ip', auth, ipMonitorController.unblockIP);
 router.get('/blocked', auth, ipMonitorController.getBlockedIPs);
 router.get('/', auth, ipMonitorController.getIPs);
+router.patch('/status', auth, ipMonitorController.updateBlockStatus);
 
 module.exports = router; 

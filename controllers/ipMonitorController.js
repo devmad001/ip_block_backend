@@ -73,13 +73,36 @@ exports.getBlockedIPs = async (req, res) => {
     }
 };
 
-
 exports.getIPs = async (req, res) => {
     try {
         const blockedIPs = await BlockedIP.find({});
         res.json(blockedIPs);
     } catch (error) {
         console.error('Error getting blocked IPs:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+};
+
+exports.updateBlockStatus = async (req, res) => {
+    try {
+        const { ip } = req.body;
+
+        const blockedIP = await BlockedIP.findOne({ ip });
+        if (!blockedIP) {
+            return res.status(404).json({ error: 'IP not found in blocked list' });
+        }
+
+        // Toggle the isActive status
+        blockedIP.isActive = !blockedIP.isActive;
+        await blockedIP.save();
+
+        res.json({
+            message: `IP block status ${blockedIP.isActive ? 'activated' : 'deactivated'} successfully`,
+            ip: blockedIP.ip,
+            isActive: blockedIP.isActive
+        });
+    } catch (error) {
+        console.error('Error updating IP block status:', error);
         res.status(500).json({ error: 'Internal server error' });
     }
 }; 
