@@ -24,7 +24,6 @@ app.use(bodyParser.json());
 
 // Routes
 app.use("/v1/users/", authRoutes);
-app.use("/block", blockRoutes);
 app.use("/ip-monitor", ipMonitorRoutes);
 
 // Serve static files from public directory
